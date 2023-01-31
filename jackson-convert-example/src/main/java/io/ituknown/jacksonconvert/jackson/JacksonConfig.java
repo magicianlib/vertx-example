@@ -39,7 +39,7 @@ public final class JacksonConfig {
      * java.util.Date 日期格式
      */
     public static void configureDate(ObjectMapper objectMapper) {
-        objectMapper.setDateFormat(new SimpleDateFormat(DateTimePattern.DATE_TIME_PATTERN));
+        objectMapper.setDateFormat(new SimpleDateFormat(DateTimePattern.DEFAULT_LOCAL_DATE_TIME));
     }
 
     /**
@@ -52,17 +52,17 @@ public final class JacksonConfig {
         JavaTimeModule javaTimeModule = new JavaTimeModule();
 
         // LocalTime 序列化和反序列化配置
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(DateTimePattern.TIME_PATTERN);
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(DateTimePattern.ISO_LOCAL_TIME);
         javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(timeFormatter));
         javaTimeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(timeFormatter));
 
         // LocalDate 序列化和反序列化配置
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DateTimePattern.DATE_PATTERN);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DateTimePattern.ISO_LOCAL_DATE);
         javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(dateFormatter));
         javaTimeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer(dateFormatter));
 
         // LocalDateTime 序列化和反序列化配置
-        DateTimeFormatter datetimeFormatter = DateTimeFormatter.ofPattern(DateTimePattern.DATE_TIME_PATTERN);
+        DateTimeFormatter datetimeFormatter = DateTimeFormatter.ofPattern(DateTimePattern.DEFAULT_LOCAL_DATE_TIME);
         javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(datetimeFormatter));
         javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(datetimeFormatter));
 
