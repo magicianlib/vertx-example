@@ -6,7 +6,7 @@ import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 
-public class ExampleHttpServerVertx extends AbstractVerticle {
+public class ExceptionHandlerHttpServerVertx extends AbstractVerticle {
 
     @Override
     public void start() throws Exception {

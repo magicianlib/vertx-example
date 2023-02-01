@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class Application {
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx();
-        vertx.deployVerticle(new ExampleHttpServerVertx());
+        vertx.deployVerticle(new ExceptionHandlerHttpServerVertx());
 
         // shutdown
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
