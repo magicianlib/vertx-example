@@ -8,7 +8,7 @@ import io.vertx.ext.web.Router;
 
 import java.time.LocalDateTime;
 
-public class ExampleHttpServer extends AbstractVerticle {
+public class ExampleHttpServerVertx extends AbstractVerticle {
     @Override
     public void start() throws Exception {
         super.start();

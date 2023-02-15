@@ -17,7 +17,7 @@ public class Application {
         setDefaultJackson(DatabindCodec.prettyMapper());
 
         Vertx vertx = Vertx.vertx();
-        vertx.deployVerticle(new ExampleHttpServer());
+        vertx.deployVerticle(new ExampleHttpServerVertx());
     }
 
     private static void setDefaultJackson(final ObjectMapper mapper) {
