@@ -14,6 +14,8 @@
         <module>http-server-example</module>
         <module>http-server-router-example</module>
         <module>jackson-convert-example</module>
+        <module>http-server-global-exception</module>
+        <module>http-server-file-handler</module>
     </modules>
 
     <properties>

@@ -13,7 +13,6 @@ public class HttpServerVertx extends AbstractVerticle {
         super.start();
         Vertx vertx = super.vertx;
 
-
         Router mainRouter = Router.router(vertx);
 
         // handler main router
@@ -22,9 +21,18 @@ public class HttpServerVertx extends AbstractVerticle {
         // handler multilevel routing
         GroupRouter.createProductRouter(vertx, mainRouter);
 
-        HttpServer httpServer = vertx.createHttpServer();
-        httpServer.requestHandler(mainRouter);
+        HttpServer httpSrv = vertx.createHttpServer();
 
-        httpServer.listen(8080);
+        // handler router
+        httpSrv.requestHandler(mainRouter);
+
+        // handler connection
+        httpSrv.connectionHandler(con -> {
+            System.out.println("连接: " + con.remoteAddress(true).hostAddress());
+            con.closeHandler(e -> System.out.println("连接 " + con.remoteAddress(true).hostAddress() + " 关闭"));
+            con.exceptionHandler(e -> System.out.println("连接 " + con.remoteAddress(true).hostAddress() + " 异常: " + e.getMessage()));
+        });
+
+        httpSrv.listen(8080);
     }
 }

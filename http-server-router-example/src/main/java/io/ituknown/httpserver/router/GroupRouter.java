@@ -4,6 +4,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RequestBody;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.handler.BodyHandler;
 
 public class GroupRouter {
 
@@ -16,14 +17,20 @@ public class GroupRouter {
             ctx.end("get product: " + id);
         });
 
+        //! GET /query?name=
+        product.get("/query").handler(ctx -> {
+            String name = ctx.get("name");
+            ctx.end("get product: " + name);
+        });
+
         //! POST /product/:id
         product.post("/:id").handler(ctx -> {
             String id = ctx.pathParam("id");
             ctx.end("post product: " + id);
         });
 
-        //! POST /product/json
-        product.post("/json").order(-1).handler(ctx -> {
+        //! POST /product/jsonBody
+        product.post("/jsonBody").order(-1).handler(BodyHandler.create()).handler(ctx -> {
             RequestBody body = ctx.body();
             JsonObject entries = body.asJsonObject();
             System.out.println(entries.toString());

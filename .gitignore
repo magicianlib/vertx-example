@@ -22,6 +22,8 @@ buildNumber.properties
 # Compiled class file
 *.class
 
+file-uploads
+
 # Log file
 *.log
 
