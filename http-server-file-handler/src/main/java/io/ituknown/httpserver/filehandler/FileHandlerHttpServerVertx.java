@@ -45,25 +45,34 @@ public class FileHandlerHttpServerVertx extends AbstractVerticle {
         router.post("/upload/builtin")
                 .handler(BodyHandler.create(System.getProperty("java.io.tmpdir")).setHandleFileUploads(true))
                 .blockingHandler(ctx -> {
-                    // see:
-                    // io.vertx.ext.web.handler.impl.BodyHandlerImpl.BHandler
-                    //
-                    // filepath 是一个是上传的文件, 该文件名会被 UUID 重写(不带后缀).
-                    // 比如 filepath 是: /var/folders/mq/y1gb7qh53rl32lr089tbdrlm0000gn/T/9eebc7dc-44ba-4e8d-82ea-5101dfe2d7a2
-                    // 其中 9eebc7dc-44ba-4e8d-82ea-5101dfe2d7a2 就是对应的文件名
-                    //
+
+                    /*
+                     * see: io.vertx.ext.web.handler.impl.BodyHandlerImpl.BHandler
+                     *
+                     * filepath 是一个上传的文件, 该文件名会被 UUID 重写(不带后缀, 在 BHandler 内部处理).
+                     *
+                     * 比如 filepath 是: `/var/folders/mq/y1g/T/9eebc7dc-44ba-4e8d-82ea-5101dfe2d7a2`
+                     *
+                     * 其中 9eebc7dc-44ba-4e8d-82ea-5101dfe2d7a2 就是对应的文件名
+                     */
+
                     List<FileUpload> files = ctx.fileUploads();
                     for (FileUpload file : files) {
 
-                        // 请求参数key, 如 avatar: <input type="file" name="avatar">
+                        // <input type="file" name="avatar" value="filepath/example.txt">
+
+                        // 请求参数key, 如 avatar
                         String name = file.name();
 
                         // 真实文件名, 如 example.txt
                         String filename = file.fileName();
 
-                        // 被 BodyHandlerImpl 重新后存储到本地的文件路径
+                        // 真实文件名会被 BodyHandlerImpl 重新, filepath 就是重写后存储到本地的文件路径(不带后缀)
                         String filepath = file.uploadedFileName();
                         System.out.println(filepath);
+
+                        // 媒体文件类型
+                        String contentType = file.contentType();
 
                         // 拿到存储到本地后的文件即可根据业务需要做处理了...
                     }
