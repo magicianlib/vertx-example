@@ -19,7 +19,7 @@ public class FileHandlerHttpServerVertx extends AbstractVerticle {
 
         Router router = Router.router(vertx);
 
-        // 文件上传
+        // 文件上传(两种处理方式)
         createRouter(router);
 
         // handler 404
