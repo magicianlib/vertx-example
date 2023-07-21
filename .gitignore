@@ -78,3 +78,6 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+# flatten-maven-plugin
+.flattened-pom.xml
+/**/.flattened-pom.xml
