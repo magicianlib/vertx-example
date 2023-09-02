@@ -40,7 +40,7 @@ public final class MySQLClient {
         DEFAULT_CONNECTION_OPTIONS.setHost("localhost");
         DEFAULT_CONNECTION_OPTIONS.setPort(3306);
         DEFAULT_CONNECTION_OPTIONS.setUser("root");
-        DEFAULT_CONNECTION_OPTIONS.setPassword("admin123");
+        DEFAULT_CONNECTION_OPTIONS.setPassword("123456");
         DEFAULT_CONNECTION_OPTIONS.setDatabase("vertx");
         DEFAULT_CONNECTION_OPTIONS.setCharacterEncoding(StandardCharsets.UTF_8.name());
 
