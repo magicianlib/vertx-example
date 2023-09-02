@@ -26,7 +26,7 @@ public class Application {
             CountDownLatch countDownLatch = new CountDownLatch(1);
             vertx.close(event -> countDownLatch.countDown());
             try {
-                countDownLatch.await(10L, TimeUnit.SECONDS);
+                countDownLatch.await(3L, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -34,7 +34,7 @@ public class Application {
 
         // Test Shutdown
         try {
-            TimeUnit.SECONDS.sleep(10L);
+            TimeUnit.SECONDS.sleep(3L);
             System.out.println("主动调用 exit");
             System.exit(0);
         } catch (InterruptedException e) {

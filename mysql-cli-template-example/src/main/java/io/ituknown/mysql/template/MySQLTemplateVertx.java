@@ -3,12 +3,12 @@ package io.ituknown.mysql.template;
 import io.ituknown.mysql.template.cli.MySQLClient;
 import io.ituknown.mysql.template.model.SysAdministrativeRegion;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Handler;
 import io.vertx.core.json.JsonObject;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.Collections;
 
 public class MySQLTemplateVertx extends AbstractVerticle {
@@ -20,22 +20,23 @@ public class MySQLTemplateVertx extends AbstractVerticle {
         MySQLClient.init(vertx, e -> vertx.close());
 
         // to class
-        RowSet<SysAdministrativeRegion> result1 = MySQLClient.forTemplateQuery("select * from sys_administrative_region where id = #{id}", SysAdministrativeRegion.class)
+        RowSet<SysAdministrativeRegion> result1 = MySQLClient.forTemplateQuery("select add_time, update_time from sys_administrative_region where id = #{id}", SysAdministrativeRegion.class)
                 .execute(Collections.singletonMap("id", "06a79cd3eed811e885da5615b7fd4e65"))
                 .onFailure(Throwable::printStackTrace)
                 .onSuccess(rows -> {
                     for (SysAdministrativeRegion row : rows) {
-                        System.out.println(row.getCode() + " --------- " + row.getName());
+//                        System.out.println(row.getAddTime() + " --------- " + row.getUpdateTime());
                     }
                 }).result();
 
         // to json
-        RowSet<JsonObject> result2 = MySQLClient.forTemplateQuery("select * from sys_administrative_region limit 10", Row::toJson)
-                .execute(Collections.emptyMap())
+        RowSet<JsonObject> result2 = MySQLClient.forTemplateQuery("select add_time, update_time from sys_administrative_region where id = #{id}", Row::toJson)
+                .execute(Collections.singletonMap("id", "06a79cd3eed811e885da5615b7fd4e65"))
                 .onFailure(Throwable::printStackTrace)
                 .onSuccess(rows -> {
                     for (JsonObject row : rows) {
-                        System.out.println(row.getString("id"));
+                        System.out.println(row.getString("add_time"));
+                        TemporalAccessor addTime = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss").parse(row.getString("add_time"));
                     }
                 }).result();
 

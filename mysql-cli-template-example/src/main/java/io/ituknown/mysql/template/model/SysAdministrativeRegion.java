@@ -1,16 +1,13 @@
 package io.ituknown.mysql.template.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.vertx.codegen.annotations.DataObject;
 import io.vertx.sqlclient.templates.annotations.Column;
 import io.vertx.sqlclient.templates.annotations.RowMapped;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @DataObject
 @RowMapped
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class SysAdministrativeRegion {
     /**
      * 主键
