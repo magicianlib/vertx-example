@@ -1,6 +1,7 @@
 package io.ituknown.jacksonconvert;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.ituknown.jacksonconvert.jackson.BigDecimalAsStringJsonSerializer;
 import io.ituknown.jacksonconvert.jackson.JacksonConfig;
@@ -24,6 +25,9 @@ public class Application {
 
         // 序列化所有字段
         mapper.setSerializationInclusion(JsonInclude.Include.ALWAYS);
+
+        // 忽略未知字段
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         // 设置时区
         JacksonConfig.configureTimeZone(mapper);

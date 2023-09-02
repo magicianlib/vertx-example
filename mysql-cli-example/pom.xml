@@ -8,9 +8,7 @@
     </parent>
     <artifactId>mysql-cli-example</artifactId>
 
-    <properties>
-
-    </properties>
+    <properties/>
 
     <dependencies>
         <dependency>

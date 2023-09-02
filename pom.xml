@@ -9,13 +9,14 @@
     <version>${revision}</version>
     <packaging>pom</packaging>
     <modules>
-        <module>mysql-cli-example</module>
         <module>grace-shutdown-example</module>
         <module>http-server-example</module>
         <module>http-server-router-example</module>
         <module>jackson-convert-example</module>
         <module>http-server-global-exception</module>
         <module>http-server-file-handler</module>
+        <module>mysql-cli-example</module>
+        <module>mysql-cli-template-example</module>
     </modules>
 
     <properties>
@@ -52,6 +53,12 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.28</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

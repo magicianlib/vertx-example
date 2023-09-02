@@ -16,7 +16,7 @@ public class MySQLVertx extends AbstractVerticle {
             vertx.close();
         });
 
-        MySQLClient.withConnection(connection -> connection.preparedQuery("SELECT * FROM buyer").execute())
+        MySQLClient.withConnection(conn -> conn.preparedQuery("SELECT * FROM buyer").execute())
                 .onSuccess(this::handleRows);
 
     }
