@@ -4,11 +4,21 @@ import io.vertx.codegen.annotations.DataObject;
 import io.vertx.sqlclient.templates.annotations.Column;
 import io.vertx.sqlclient.templates.annotations.RowMapped;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
+/**
+ * 行政区划
+ *
+ * @author Shilin <br > mingrn97@gmail.com
+ * @since 2023/09/02 21:29
+ */
 @DataObject
 @RowMapped
-public class SysAdministrativeRegion {
+public class SysAdministrativeRegion implements Serializable {
+
+    private static final long serialVersionUID = -7160790594024473087L;
+
     /**
      * 主键
      */
@@ -63,12 +73,12 @@ public class SysAdministrativeRegion {
      * 创建时间
      */
     @Column(name = "add_time")
-    private Date addTime;
+    private LocalDateTime addTime;
     /**
      * 修改时间
      */
     @Column(name = "update_time")
-    private Date updateTime;
+    private LocalDateTime updateTime;
     /**
      * 描述说明
      */
@@ -155,19 +165,19 @@ public class SysAdministrativeRegion {
         this.deleted = deleted;
     }
 
-    public Date getAddTime() {
+    public LocalDateTime getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Date addTime) {
+    public void setAddTime(LocalDateTime addTime) {
         this.addTime = addTime;
     }
 
-    public Date getUpdateTime() {
+    public LocalDateTime getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
     }
 

@@ -6,14 +6,15 @@ import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.mysqlclient.MySQLConnectOptions;
 import io.vertx.mysqlclient.MySQLPool;
+import io.vertx.mysqlclient.impl.MySQLCollation;
 import io.vertx.sqlclient.*;
 import io.vertx.sqlclient.templates.RowMapper;
 import io.vertx.sqlclient.templates.SqlTemplate;
 import io.vertx.sqlclient.templates.TupleMapper;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -21,19 +22,29 @@ import java.util.function.Function;
 public final class SQLClient {
 
     private static final SQLClient INSTANCE = new SQLClient();
-    private static final MySQLConnectOptions DEFAULT_CONNECTION_OPTIONS = new MySQLConnectOptions();
+
     private static final PoolOptions DEFAULT_POOL_OPTIONS = new PoolOptions();
+    private static final MySQLConnectOptions DEFAULT_CONNECTION_OPTIONS = new MySQLConnectOptions();
 
     static {
+        DEFAULT_POOL_OPTIONS.setMaxSize(5);
+        DEFAULT_POOL_OPTIONS.setShared(true);
+
         DEFAULT_CONNECTION_OPTIONS.setHost("localhost");
         DEFAULT_CONNECTION_OPTIONS.setPort(3306);
         DEFAULT_CONNECTION_OPTIONS.setUser("root");
-        DEFAULT_CONNECTION_OPTIONS.setPassword("admin123");
+        DEFAULT_CONNECTION_OPTIONS.setPassword("123456");
         DEFAULT_CONNECTION_OPTIONS.setDatabase("vertx");
-        DEFAULT_CONNECTION_OPTIONS.setCharacterEncoding(StandardCharsets.UTF_8.name());
 
-        DEFAULT_POOL_OPTIONS.setMaxSize(5);
-        DEFAULT_POOL_OPTIONS.setShared(true);
+        // 连接编码
+        DEFAULT_CONNECTION_OPTIONS.setCollation(MySQLCollation.utf8mb4_bin.name());
+        DEFAULT_CONNECTION_OPTIONS.setCharset(MySQLCollation.utf8mb4_bin.mysqlCharsetName());
+        DEFAULT_CONNECTION_OPTIONS.setCharacterEncoding(MySQLConnectOptions.DEFAULT_CHARACTER_ENCODING); // UTF-8
+
+        // 空闲时间
+        DEFAULT_CONNECTION_OPTIONS.setIdleTimeout(30);
+        DEFAULT_CONNECTION_OPTIONS.setIdleTimeoutUnit(TimeUnit.SECONDS);
+
     }
 
     private final AtomicBoolean initialization = new AtomicBoolean(false);

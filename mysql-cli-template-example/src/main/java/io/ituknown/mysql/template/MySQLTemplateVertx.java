@@ -2,6 +2,7 @@ package io.ituknown.mysql.template;
 
 import io.ituknown.mysql.template.cli.SQLClient;
 import io.ituknown.mysql.template.model.SysAdministrativeRegion;
+import io.ituknown.mysql.template.model.SysAdministrativeRegionExample;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
@@ -9,8 +10,6 @@ import io.vertx.mysqlclient.MySQLClient;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
 import java.util.Collections;
 
 public class MySQLTemplateVertx extends AbstractVerticle {
@@ -27,7 +26,7 @@ public class MySQLTemplateVertx extends AbstractVerticle {
                 .onFailure(Throwable::printStackTrace)
                 .onSuccess(rows -> {
                     for (SysAdministrativeRegion row : rows) {
-//                        System.out.println(row.getAddTime() + " --------- " + row.getUpdateTime());
+                        System.out.println(row.getAddTime() + " --------- " + row.getUpdateTime());
                     }
                 }).result();
 
