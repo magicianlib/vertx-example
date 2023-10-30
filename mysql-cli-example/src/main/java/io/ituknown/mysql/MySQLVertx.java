@@ -1,6 +1,6 @@
 package io.ituknown.mysql;
 
-import io.ituknown.mysql.cli.MySQLClient;
+import io.ituknown.mysql.cli.SQLClient;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
@@ -11,12 +11,12 @@ public class MySQLVertx extends AbstractVerticle {
     public void start() throws Exception {
         super.start();
 
-        MySQLClient.init(vertx, e -> {
+        SQLClient.init(vertx, e -> {
             e.printStackTrace();
             vertx.close();
         });
 
-        MySQLClient.withConnection(conn -> conn.preparedQuery("SELECT * FROM buyer").execute())
+        SQLClient.withConnection(conn -> conn.preparedQuery("SELECT * FROM buyer").execute())
                 .onSuccess(this::handleRows);
 
     }
@@ -24,7 +24,7 @@ public class MySQLVertx extends AbstractVerticle {
     @Override
     public void stop() throws Exception {
         super.stop();
-        MySQLClient.release();
+        SQLClient.release();
     }
 
     public void handleRows(RowSet<Row> event) {
